@@ -27,9 +27,7 @@ $ npm install async-ee
 
 ## Usage
 
-The basic usage of `async-ee` is totally the same as the vanilla `EventEmitter`. You could simply use `async-ee` instead `events` in the existing code.
-
-But `async-ee` provides a way to make `this.emit()` an async function.
+`asyncEmitter.emit()` returns a `Promise`, so that we could use it in async functions.
 
 ```js
 import EventEmitter from 'async-ee'
