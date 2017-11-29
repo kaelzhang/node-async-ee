@@ -15,9 +15,7 @@
 
 # async-ee
 
-The async/await event emitters.
-
-The usage of `async-ee` is nearly the same as the vanilla [`EventEmitter`](https://nodejs.org/dist/latest-v9.x/docs/api/events.html), except that `asyncEmitter.emit()` returns a `Promise`, while the builtin `emitter.emit()` returns a boolean value.
+The async/await event emitters, which is a drop-in replacement of the nodejs' builtin events.
 
 ## Install
 
@@ -27,16 +25,21 @@ $ npm install async-ee
 
 ## Usage
 
-`asyncEmitter.emit()` returns a `Promise`, so that we could use it in async functions.
+The basic usage of `async-ee` is totally the same as the vanilla `EventEmitter`. You could simply use `async-ee` instead `events` in the existing code.
+
+`async-ee` extends `EventEmitter`, and provides two new methods:
+
+- **emitAsync**
+- **emitAsyncSeries**
 
 ```js
 import EventEmitter from 'async-ee'
 
 class MyClass extends EventEmitter {
   async doSomething () {
-    await this.emit('before-event')
+    await this.emitAsync('before-event')
     const data = await doThings()
-    await this.emit('after-event', data)
+    await this.emitAsync('after-event', data)
     this.emit('sync-event')
     return data
   }
@@ -52,13 +55,13 @@ const foo = new MyClass()
 })
 ```
 
-### emitter.emit(eventName[, ...args])
+### emitter.emitAsync(eventName[, ...args])
 
-Run event handlers with `Promise.all`.
+Run event handlers with `Promise.all()`.
 
-### emitter.emitSeries(eventName[, ...args])
+### emitter.emitAsyncSeries(eventName[, ...args])
 
-Run event handlers in sequence.
+Run async event handlers in sequences.
 
 ## License
 
